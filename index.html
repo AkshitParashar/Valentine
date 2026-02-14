@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e629df 0%, #FFB6C1 100%), url('heart-pattern.png'); /* Gradient with subtle heart overlay */
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .title {
+            font-size: 2em;
+            color: #000000;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .title:hover {
+            color: #FF1493;
+        }
+        
+        .hidden-message {
+            display: none;
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .container {
+            text-align: center;
+            position: relative;
+        }
+        
+        .card {
+            display: none;
+            background: white;
+            border: 10px solid white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 10px;
+            border-radius: 5px;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+        }
+        
+        .card.active {
+            display: block;
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .card:nth-child(odd) {
+            transform: rotate(-1deg) scale(0.8);
+        }
+        
+        .card:nth-child(even) {
+            transform: rotate(1deg) scale(0.8);
+        }
+        
+        .card.active:nth-child(odd) {
+            transform: rotate(-1deg) scale(1);
+        }
+        
+        .card.active:nth-child(even) {
+            transform: rotate(1deg) scale(1);
+        }
+        
+        .card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        
+        .caption {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .love-reason {
+            font-size: 14px;
+            color: #FF69B4;
+            margin-top: 5px;
+        }
+        
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .nav-button.left {
+            left: 10px;
+        }
+        
+        .nav-button.right {
+            right: 10px;
+        }
+        
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+        
+        .music-controls {
+            margin-top: 20px;
+        }
+        
+        .music-button {
+            background: #FF69B4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .music-button:hover {
+            background: #FF1493;
+        }
+        
+        .envelope-icon {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            color: #e5dadf;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+            z-index: 10;
+        }
+        
+        .envelope-icon:hover {
+            color: #070406;
+            transform: translateY(-50%) scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title" onmouseover="showHiddenMessage()" onmouseout="hideHiddenMessage()">Happy Valentine's Day, My Love!</h1>
+    <div class="hidden-message" id="hiddenMessage">Psst... You're the best thing that ever happened to me! 💕</div>
+    
+<div class="container">
+        <button class="nav-button left" onclick="prevCard()">&#10094;</button>
+        <button class="nav-button right" onclick="nextCard()">&#10095;</button>
+        
+        <!-- Card 1 -->
+        <div class="card active" id="card1">
+            <img src="./src/photo-collage.png.png" alt="Memory 1">
+            <div class="caption">Some Moments just feel peaceful with you ❤️
+            </div>
+            <div class="love-reason">You make things feel lighter without even trying.</div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="card" id="card2">
+            <img src="./src/me&aish4.jpeg" alt="Memory 2">
+            <div class="caption">I am grateful our paths crossed 🥰</div>
+            <div class="love-reason">You've brought warmth into my life in ways you don't even realise.</div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="card" id="card3">
+            <img src="./src/me&aish3.jpeg" alt="Memory 3">
+            <div class="caption">Life feels a little brighter around you 💕</div>
+            <div class="love-reason">Your laugh and your energy make even normal days feel good.</div>
+        </div>
+        
+        <!-- Card 4 -->
+        <div class="card" id="card4">
+            <img src="./src/ais&me2.jpeg" alt="Memory 4">
+            <div class="caption">With you things feel steady, even when life isn't ❣️</div>
+            <div class="love-reason">You give me a sense of calm I didn't know I needed.</div>
+        </div>
+        
+        <!-- Card 5 -->
+        <div class="card" id="card5">
+            <img src="./src/aish&me.jpeg" alt="Memory 5">
+            <div class="caption">All we Have is Now 🌛</div>
+            <div class="love-reason">If this is our 'now', I wouldn't mind if time slowed down a little.</div>
+        </div>
+    </div>
+    
+    <div class="music-controls">
+        <button class="music-button" id="musicBtn" onclick="toggleMusic()">Play Music</button>
+    </div>
+    
+    <i class="fas fa-envelope envelope-icon" onclick="window.location.href='letter.html'"></i>
+    
+    <audio id="backgroundMusic" src="./music/I think they call this love.mp3" loop></audio>
+    
+    <script>
+        let currentCard = 0;
+        const cards = document.querySelectorAll('.card');
+        const totalCards = cards.length;
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('backgroundMusic');
+        
+        function showCard(index) {
+            cards.forEach(card => card.classList.remove('active'));
+            cards[index].classList.add('active');
+            confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 } }); // Confetti on card change
+        }
+        
+        function nextCard() {
+            currentCard = (currentCard + 1) % totalCards;
+            showCard(currentCard);
+        }
+        
+        function prevCard() {
+            currentCard = (currentCard - 1 + totalCards) % totalCards;
+            showCard(currentCard);
+        }
+        
+        function toggleMusic() {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicBtn.textContent = 'Pause Music';
+            } else {
+                bgMusic.pause();
+                musicBtn.textContent = 'Play Music';
+            }
+        }
+        
+        function showHiddenMessage() {
+            document.getElementById('hiddenMessage').style.display = 'block';
+        }
+        
+        function hideHiddenMessage() {
+            document.getElementById('hiddenMessage').style.display = 'none';
+        }
+        
+        // Initial confetti burst
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        
+        // Start slideshow
+        setInterval(nextCard, 5000);
+    </script>
+</body>
+</html>
